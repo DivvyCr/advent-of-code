@@ -15,24 +15,31 @@ int main() {
   while (getline(input, line)) {
     game_idx++;
 
-    long blues = 0;
-    long reds = 0;
-    long greens = 0;
+    long max_blues = 0;
+    long max_reds = 0;
+    long max_greens = 0;
     
     regex rgx("([0-9]+) (blue|red|green)");
     smatch rgx_match;
     auto rgx_start(line.cbegin());
-    bool is_possible = true;
     while (regex_search(rgx_start, line.cend(), rgx_match, rgx)) {
-      if (rgx_match[2].str() == "red" && stol(rgx_match[1].str()) > 12) is_possible = false; //reds += stol(rgx_match[1].str());
-      if (rgx_match[2].str() == "green" && stol(rgx_match[1].str()) > 13) is_possible = false; //greens += stol(rgx_match[1].str());
-      if (rgx_match[2].str() == "blue" && stol(rgx_match[1].str()) > 14) is_possible = false; //blues += stol(rgx_match[1].str());
+      if (rgx_match[2].str() == "red") {
+        long reds = stol(rgx_match[1].str());
+        max_reds = reds > max_reds ? reds : max_reds;
+      }
+      if (rgx_match[2].str() == "green") {
+        long greens = stol(rgx_match[1].str());
+        max_greens = greens > max_greens ? greens : max_greens;
+      }
+      if (rgx_match[2].str() == "blue") {
+        long blues = stol(rgx_match[1].str());
+        max_blues = blues > max_blues ? blues : max_blues;
+      }
       
-      if (!is_possible) break;
       rgx_start = rgx_match.suffix().first;
     };
     
-    if (is_possible) sum += game_idx;
+    sum += max_reds*max_greens*max_blues;
   }
   cout << sum;
 }
