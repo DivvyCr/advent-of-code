@@ -108,10 +108,8 @@ int main() {
   for (int i = 0; i < 7; i++) process_map(&seeds);
 
   long min_seed = LONG_MAX;
-  for (auto &x : seeds) {
-    if (x.start < min_seed) min_seed = x.start;
-  }
-  std::cout << min_seed << std::endl;
+  for (auto &x : seeds) if (x.start < min_seed) min_seed = x.start;
+  std::cout << std::endl << min_seed << std::endl;
 
   return 0;
 }
