@@ -8,16 +8,11 @@ using namespace std;
 void solve() {
   long long t = 44826981;
   long long d = 202107611381458;
-  long long result;
 
   long long count = 0;
   for (long long i = 0; i < t; i++) {
-    result = i*(t-i);
-    if (result > d) {
-      count++;
-    }
+    if (i*(t-i) > d) count++;
   }
-
   std::cout << count << std::endl;
 }
 
